@@ -98,6 +98,7 @@ end
 
 -- 'z' alias
 local function __zoxide_z(keywords)
+  local input = table.concat(keywords," ")
   if #keywords == 0 then
     return __zoxide_cd(os.getenv 'USERPROFILE')
   elseif #keywords == 1 then
@@ -107,6 +108,8 @@ local function __zoxide_z(keywords)
     elseif os.isdir(keyword) then
       return __zoxide_cd(keyword)
     end
+  elseif os.isdir(input) then
+    return __zoxide_cd(input)
   end
 
   local cwd = '"' .. os.getcwd() .. '"'
